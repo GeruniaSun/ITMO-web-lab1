@@ -1,0 +1,9 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="WebLab1.jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/WebLab1_jar</output-path>
+    <root id="archive" name="WebLab1.jar">
+      <element id="module-output" name="WebLab1" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/../penis/lib/fastcgi-lib.jar" path-in-jar="/" />
+    </root>
+  </artifact>
+</component>

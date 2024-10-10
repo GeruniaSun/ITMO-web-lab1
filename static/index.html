@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+    <title>NO MERCY</title>
+    <meta charset="UTF-8">
+</head>
+
+<style>
+    html {
+  height: 100%;
+  font-family: sans-serif;
+}
+
+body {
+  background: #000000;
+  color: #fff;
+  margin: 0;
+  min-height: 100%;
+  height: 100%;
+  margin: 3%;
+}
+
+header div {
+    background: #111111;
+    width: 25%;
+    border-radius: 1vw;
+}
+
+div:hover {
+    cursor: default;
+}
+
+.hub {
+  background: #000000;
+  display: block;
+  padding-left: 5%;
+  font-weight: bold;
+  font-size: 50px;
+  width: 30%;
+}
+
+.hub h1 {
+    color: white;
+}
+
+.hub a span {
+  background: #FF9900;
+  color: #000000;
+  border-radius: 1vw;
+  padding: 0 1vw 1vw 1vw;
+  display: inline-block;
+}
+
+.hub:active {
+  color: white;
+}
+
+a {
+    text-decoration: none;
+    color: #FF9900;
+    transition: 0.5s ease;
+}
+
+a:hover {
+    transform: scale(1.7);
+    background: #FF9900;
+    color: #000000;
+    border-radius: 1vw;
+}
+
+header div p {
+    text-align: center;
+    font-family: cursive;
+    font-size: 25px;
+    color: #DD7700;
+}
+
+nav {
+    position: fixed;
+    right: 5%;
+    top: 5%;
+}
+
+nav ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    font-size: 30px;
+}
+
+nav ul li {
+    margin-left: 50px;
+}
+
+.form_answers {
+    margin-top: 20px;
+    margin-left: 10px;
+    font-size 35px;
+}
+
+.form_label {
+    background: #555555;
+    border-radius: 3px;
+}
+
+.x_button {
+    margin: 10px;
+    padding: 10px 20px;
+    border-color: orange;
+}
+
+.x_button:hover {
+    background-color: gray;
+    color: white
+}
+
+.x_button.active {
+    background-color: orange;
+    color: black;
+}
+
+button[type="submit"]{
+    padding: 10px;
+    margin: 10px;
+    background: #FF9900;
+    color: #000000;
+    border-radius: 1vw;
+    border-color: white;
+}
+
+button[type="submit"]:hover{
+    color: #FF9900;
+    background: #000000;
+    border-radius: 3vw;
+    border-color: white;
+    cursor: pointer;
+}
+
+button[type="submit"]:disabled{
+    border-radius: 1;
+    border-color: gray;
+    background: gray;
+    color: #AA5500;
+    transform: scale(0.8);
+    cursor: not-allowed;
+}
+
+.container {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+table {
+    flex: 1;
+    width: 60%;
+    border-collapse: collapse;
+}
+
+thead {
+    background-color: #CC5500;
+}
+
+thead th {
+    padding: 12px;
+    text-align: center;
+    border-bottom: 2px solid #fff;
+    height: 10px;
+}
+
+tbody tr {
+    transition: background-color 0.5s;
+    height: 20px;
+}
+
+tbody td {
+    padding: 12px;
+    border: 1px solid #FF9900;
+    height: 15px;
+}
+
+tbody tr:nth-child(even) {
+    background-color: #111;
+}
+
+tbody tr:hover {
+    background-color: #ff6600;
+}
+
+td {
+    border: 1px solid #ff6600; /* Оранжевая граница для всех ячеек */
+}
+
+th {
+    border: 1px solid #ff6600; /* Оранжевая граница для заголовков */
+}
+
+.pagination button {
+    margin: 20px;
+    padding: 10px 15px;
+    background-color: #000000;
+    color: white;
+    cursor: pointer;
+    border-radius: 5px;
+    border-color: #FF9900;
+}
+
+.pagination button:hover {
+    background-color: #FF9900;
+}
+
+.pagination button:disabled {
+    background-color: #111;
+    cursor: not-allowed;
+    border-color: #111;
+}
+</style>
+
+<body>
+
+<header>
+    <div class="hub">
+        <a href="https://sp.freehat.cc/episode/season-1/"><h1>Web<span>Lab</span></h1></a>
+    </div>
+    <div>
+        <p>student: Шнейдерис Герардас</p>
+        <p>group: P3220</p>
+        <p>var: 409910</p>
+    </div>
+    <nav>
+        <ul>
+            <li><a href="https://se.ifmo.ru/teacher">Главное</a></li>
+            <li><a href="#grid">Форма</a></li>
+            <li><a href="#footer">Партнеры</a></li>
+        </ul>
+    </nav>
+</header>
+
+<canvas id="grid" width="840" height="640"></canvas>
+
+<form id="form">
+    <div id="x" class="form_answers">
+        <label class="form_label">X:</label>
+        <button type="button" name="x" class="x_button" value="-4">-4</button>
+        <button type="button" name="x" class="x_button" value="-3">-3</button>
+        <button type="button" name="x" class="x_button" value="-2">-2</button>
+        <button type="button" name="x" class="x_button" value="-1">-1</button>
+        <button type="button" name="x" class="x_button" value="0">0</button>
+        <button type="button" name="x" class="x_button" value="1">1</button>
+        <button type="button" name="x" class="x_button" value="2">2</button>
+        <button type="button" name="x" class="x_button" value="3">3</button>
+        <button type="button" name="x" class="x_button" value="4">4</button>
+    </div>
+
+    <div class="form_answers">
+        <label for="y" class="form_label">Y:</label>
+        <input id="y" name="y" min="-3" max="3" class="form_answers" required>
+    </div>
+
+    <div id="r" class="form_answers">
+        <label class="form_label">R:</label>
+        <label><input type="checkbox" name="r" value="1"> 1</label>
+        <label><input type="checkbox" name="r" value="2"> 2</label>
+        <label><input type="checkbox" name="r" value="3"> 3</label>
+        <label><input type="checkbox" name="r" value="4"> 4</label>
+        <label><input type="checkbox" name="r" value="5"> 5</label>
+    </div>
+
+    <div class="form_answers">
+        <button id="submit_button" type="submit" disabled>Отправить</button>
+    </div>
+</form>
+
+<div class="container">
+    <table id="table">
+        <thead>
+            <tr>
+                <th>X</th>
+                <th>Y</th>
+                <th>R</th>
+                <th>Result</th>
+                <th>Current Time</th>
+                <th>Execution Time</th>
+            </tr>
+        </thead>
+        <tbody id="tbody">
+        </tbody>
+    </table>
+    <div id="pagination" class="pagination">
+
+    </div>
+
+    <footer id="footer">
+        <p>
+            Этот сайт написан китайскими детьми, если хотите пожертвовать денег им на айфон перейдите по
+            <a href="https://www.kickstarter.com/projects/notyourchurchcoffee/not-your-church-coffee-brew-the-unholy?ref=discovery_category&total_hits=4356&category_id=307">
+                ссылке</a>
+        </p>
+        <p>
+            <img src="images/itmo.png" alt="логотип ИТМО" width="300px">
+        </p>
+    </footer>
+</div>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="script.js"></script>
+</body>
+</html>
