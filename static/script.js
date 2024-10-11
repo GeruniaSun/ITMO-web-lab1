@@ -145,14 +145,6 @@ rCheckboxes.forEach(input => input.addEventListener("change", confirmSubmit));
 yInput.addEventListener("input", confirmSubmit);
 rCheckboxes.forEach(input => input.addEventListener("change", confirmSubmit));
 
-for (let i = 1; i <= 10000; i++) {attempts.push({
-        x: i,
-        y: i,
-        r: i*i,
-        hit: `hit of ${i}`,
-        currTime: `currTime of ${i}`,
-        execTime: `execTime of ${i}`,
-    })}
 let currentPage = 1;
 showPage(currentPage);
 setupPagination();
@@ -170,54 +162,37 @@ form?.addEventListener('submit', function(event){
     console.log('Y:', yValue);
     console.log('R:', rValue);
 
-//    const requestContent = {
-//            "method": "POST",
-//            "mode": 'no-cors',
-//            "body": JSON.stringify({
-//                x: xValue,
-//                y: yValue,
-//                r: rValue
-//            })
-//        };
-
-//    fetch(`http://localhost:24113/fcgi-bin/WebLab1.jar?x=${x}&y=${y}&r=${r}`, {
-//        method: 'POST'
-//        })
-//        .then(response => response.json())
-//        .then(data => {
-//            appendData(data);
-//            }
-//        ).catch(error => {
-//             alert('Ошибка отправки данных.' + error.message + error.stack);
-//             console.log(error.stack);
-//             });;
-
-    $.ajax({
-        url: `http://localhost:24113/fcgi-bin/WebLab1.jar`,
-        type: 'POST',
-        dataType: 'text',
-        data: JSON.stringify({
-            x: xValue,
-            y: yValue,
-            r: rValue
-        }),
-        success: function (response) {
-            const responseData = JSON.parse(response);
-            appendData(responseData);
-            console.log(responseData);
-
-            // рисовашки
-            ctx.clearRect(0, 0, canvas.width, canvas.height);
-            drawGrid();
-            drawArea(rValue);
-            dots.push([xValue, yValue]);
-            dots.forEach(dot => drawPoint(dot[0], dot[1]));
+    fetch('/api/', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
         },
-        error: function (xhr, status, error) {
-            console.error('Error:', error);
-        }
-    });
+        body: JSON.stringify({
+                x: xValue,
+                y: yValue,
+                r: rValue
+        }),
+    }).then(response => {
+          if (!response.ok) {
+              throw new Error('Ошибка сети: ' + response.status);
+          }
+          return response.json();
+    })
+    .then(data => {
+        console.log(data);
+        appendData(data);
 
+        // рисовашки
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        drawGrid();
+        drawArea(rValue);
+        dots.push([xValue, yValue]);
+        dots.forEach(dot => drawPoint(dot[0], dot[1]));
+    })
+    .catch(error => {
+        alert('Ошибка отправки данных.\n' + error.message + error.stack);
+        console.log(error.stack);
+    });
 });
 
 function appendData(data) {
@@ -227,7 +202,7 @@ function appendData(data) {
         r: data.r,
         hit: data.hit,
         currTime: data.currTime,
-        execTime: data.execTime.toFixed(8) + " сек",
+        execTime: parseFloat(data.execTime).toFixed(8) + " сек",
     })
 
     showPage(1);

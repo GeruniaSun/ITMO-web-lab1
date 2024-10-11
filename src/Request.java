@@ -4,7 +4,7 @@ public record Request(int x, float y, int r) {
         return new Request(
                 Integer.parseInt((params[1].split(",")[0])),
                 Float.parseFloat((params[2].split(",")[0])),
-                Integer.parseInt((params[3].split(",")[0])));
+                Integer.parseInt((params[3].replace("}", "").split(",")[0])));
     }
 
     @Override
