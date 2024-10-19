@@ -1,9 +1,16 @@
 const canvas = document.getElementById('grid');
 const ctx = canvas.getContext('2d');
 
+
+// приколы
+const gachiSound = new Audio('sounds/h.mp3');
+const gavrillinaSound = new Audio('sounds/Drama_Queen.mp3');
+const easterEgg = document.getElementById('cringe_area');
+
 const form = document.getElementById('form');
 const xButtons = document.getElementsByName('x');
 const yInput = document.getElementById('y');
+const yErrorLabel = document.getElementById('y_error_label');
 const rCheckboxes = document.getElementsByName('r');
 const submit = document.getElementById('submit_button');
 let dots = [];
@@ -113,11 +120,28 @@ xButtons.forEach(button => {
 // проверка Y
 function validateY() {
     yInput.value = yInput.value.replace(',', '.');
-    if (yInput.value.trim() == "" ||
-        isNaN(yInput.value)) return false;
+    if (yInput.value.trim() == "" || isNaN(yInput.value)) {
+        return false;
+    }
     const y = parseFloat(yInput.value);
     if (!isNaN(y) && -3 <= y  && y <= 3 &&
-     -3 <= Number(yInput.value.replace(/0/g, '')) && Number(yInput.value.replace(/0/g, '') <= 3)) return true;
+     -3 <= Number(yInput.value.replace(/0/g, '')) && Number(yInput.value.replace(/0/g, '') <= 3)) {
+        return true;
+     }
+}
+
+// прикол
+function showEasterEgg(status) {
+    easterEgg.style.display = status ? "block" : "none";
+    if (status) {
+        gavrillinaSound.play().catch(error => {
+                    console.error("Ошибка при воспроизведении звука:", error);
+                });
+    }
+    else {
+        gavrillinaSound.pause();
+        gavrillinaSound.currentTime = 0;
+    }
 }
 
 // превращение чекбоксов R в радиокнопки
@@ -137,6 +161,10 @@ function confirmSubmit() {
     const xSelected = Array.from(xButtons).some(button => button.classList.contains('active'));
     const yFilled = validateY();
     const rSelected = Array.from(rCheckboxes).some(input => input.checked);
+
+    yErrorLabel.style.display = validateY() ? "none" : "inline";
+
+    showEasterEgg(yInput.value === "mashusikthebest");
 
     submit_button.disabled = (xSelected && yFilled && rSelected) ? false : true;
 }
@@ -161,6 +189,11 @@ form?.addEventListener('submit', function(event){
     console.log('X:', xValue);
     console.log('Y:', yValue);
     console.log('R:', rValue);
+    gachiSound.play().catch(error => {
+                    console.error("Ошибка при воспроизведении звука:", error);
+                });
+// http://localhost:20013/fcgi-bin/WebLab1.jar
+//http://localhost:24113/fcgi-bin/WebLab1.jar
 
     fetch('/api/', {
         method: 'POST',
@@ -181,6 +214,8 @@ form?.addEventListener('submit', function(event){
     .then(data => {
         console.log(data);
         appendData(data);
+        showPage(currentPage);
+        setupPagination();
 
         // рисовашки
         ctx.clearRect(0, 0, canvas.width, canvas.height);
@@ -196,16 +231,16 @@ form?.addEventListener('submit', function(event){
 });
 
 function appendData(data) {
-    attempts.push({
+    attempts.unshift({
         x: data.x,
         y: data.y,
         r: data.r,
         hit: data.hit,
         currTime: data.currTime,
-        execTime: parseFloat(data.execTime).toFixed(8) + " сек",
+        execTime: parseFloat(data.execTime).toFixed(4) + " сек.",
     })
 
-    showPage(1);
+    console.log(attempts);
 }
 
 function showPage(page) {
@@ -230,7 +265,7 @@ const tableBody = document.getElementById('tbody');
 function setupPagination() {
     const pagination = document.getElementById('pagination');
     pagination.innerHTML = '';
-
+    console.log("+1 penis");
     const pageCount = Math.ceil(attempts.length / rowsPerPage);
 
     for (let i = 1; i <= pageCount; i++) {

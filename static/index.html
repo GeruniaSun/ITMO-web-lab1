@@ -3,6 +3,7 @@
 
 <head>
     <title>NO MERCY</title>
+    <link rel="icon" href="images/favicon.png" type="image/png">
     <meta charset="UTF-8">
 </head>
 
@@ -94,6 +95,21 @@ nav ul li {
     margin-left: 50px;
 }
 
+#canvas_container {
+    display: flex;
+    align-items: flex-start;
+}
+
+#grid {
+    border: solid gray 2px;
+}
+
+#cringe_area {
+    margin-left: 160px;
+    margin-top: 80px;
+    display: none;
+}
+
 .form_answers {
     margin-top: 20px;
     margin-left: 10px;
@@ -103,6 +119,13 @@ nav ul li {
 .form_label {
     background: #555555;
     border-radius: 3px;
+}
+
+.error_label {
+    background: #333333;
+    color: red;
+    border-radius: 3px;
+    display: none;
 }
 
 .x_button {
@@ -238,7 +261,12 @@ th {
     </nav>
 </header>
 
-<canvas id="grid" width="840" height="640"></canvas>
+<div id="canvas_container">
+    <canvas id="grid" width="840" height="640"></canvas>
+    <div id="cringe_area">
+        <img src="images/saturday.gif" width="640" height="480">
+    </div>
+</div>
 
 <form id="form">
     <div id="x" class="form_answers">
@@ -257,6 +285,7 @@ th {
     <div class="form_answers">
         <label for="y" class="form_label">Y:</label>
         <input id="y" name="y" min="-3" max="3" class="form_answers" required>
+        <span id="y_error_label" class="error_label"><- Enter number between -3 and 3</span>
     </div>
 
     <div id="r" class="form_answers">
